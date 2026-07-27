@@ -8,7 +8,6 @@ st.markdowm("""## User can create or download AI
 created resume based on high ATS score""")
 
 #---------Agent code----------
-import IPython as ip
 import os
 import time
 import langchain

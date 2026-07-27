@@ -2,7 +2,7 @@ import streamlit as st
 #streamlit:web based app making
 #lite python framework
 st.title("AI Resume Maker")
-st.markdowm("""## User can create or download AI 
+st.markdown("""## User can create or download AI 
 created resume based on high ATS score""")
 
 #=========Agent code==========

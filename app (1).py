@@ -79,14 +79,15 @@ def resume_maker_prompt():
   return prompt
 resume_maker_prompt()
 #============UPLOAD IMAGE=============
- uploaded_file = st.sidebar.fileuploader(
-     "choose an image file",
+uploaded_file = st.sidebar.fileuploader(
+    "choose an image file",
      type=["jpg","jpeg","png","webp"])
 if uploaded_file is not None:
     try:
         image = Image.open(uploaded_file)
         st.sidebar.image(image, caption="uploaded image",use_container_width=True)
-
+    
+     
 if image.mode in ("RGBA","p"):
     image = image.convert("RGB")
     base_name=os.path.splitext(uploaded_file.name)[0]

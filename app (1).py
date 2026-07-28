@@ -88,16 +88,16 @@ if uploaded_file is not None:
         st.sidebar.image(image, caption="uploaded image",use_container_width=True)
     
      
-if image.mode in ("RGBA","p"):
-    image = image.convert("RGB")
-    base_name=os.path.splitext(uploaded_file.name)[0]
-    save_path =f"{base_name}.jpg"
-
-#3 save the image to the current working directory
-image.save(save_path,"JPEG")
-st.sidebar.success(f"image generated successfully saves as '{save_path}'!")
-except Exception as e:
-st.error(f"error processing image: {e}")
+        if image.mode in ("RGBA","p"):
+            image = image.convert("RGB")
+            base_name=os.path.splitext(uploaded_file.name)[0]
+            save_path =f"{base_name}.jpg"
+        
+        #3 save the image to the current working directory
+        image.save(save_path,"JPEG")
+        st.sidebar.success(f"image generated successfully saves as '{save_path}'!")
+    except Exception as e:
+        st.error(f"error processing image: {e}")
 
 #============ generate resume==========
 prompt="""you are helpful AI assistant

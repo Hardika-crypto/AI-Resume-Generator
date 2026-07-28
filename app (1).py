@@ -18,11 +18,17 @@ from langchain.messages import SystemMessage, HumanMessage
 import numpy as np
 import streamlit as st
 from langchain_community.document_loaders import PyMuPDFLoader
+from PIL import image
 
 #===========API key load=================
 GOOGLE_API_KEY = st.sidebar.text_input("GEMINI_API_KEY",type="password")
-GROQ_API_KEY = st.sidebar.text_input("GROQ_API_KEY",type="password")
+GROQ_API_KEY= st.sidebar.text_input("GROQ_API_KEY",type="password")
 TAVILY_API_KEY = st.sidebar.text_input("TAVILY_API_KEY",type="password")
+if not(GOOGLE_API_KEY) and not (GROQ_API_KEY) and not (TAVILY_API_KEY):
+    st.sidebar.warning("PASS API KEY")
+    st.stop()
+else:
+    st.success("API KEY LOADED")
 
 #========Model building============
 model=ChatGoogleGenerativeAI(
@@ -72,6 +78,25 @@ def resume_maker_prompt():
     prompt = f.read()
   return prompt
 resume_maker_prompt()
+#============UPLOAD IMAGE=============
+ uploaded_file = st.sidebar.fileuploader(
+     "choose an image file",
+     type=["jpg","jpeg","png","webp"])
+if uploaded_file is not None:
+    try:
+        image = Image.open(uploaded_file)
+        st.sidebar.image(image, caption="uploaded image",use_container_width=True)
+
+if image.mode in ("RGBA","p"):
+    image = image.convert("RGB")
+    base_name=os.path.splitext(uploaded_file.name)[0]
+    save_path =f"{base_name}.jpg"
+
+#3 save the image to the current working directory
+image.save(save_path,"JPEG")
+st.sidebar.success(f"image generated successfully saves as '{save_path}'!")
+except Exception as e:
+st.error(f"error processing image: {e}")
 
 #============ generate resume==========
 prompt="""you are helpful AI assistant
@@ -82,13 +107,15 @@ with profesional design format.
 user will upload data and return htyml format resume"""
 final_prompt = prompt + resume_maker_prompt()
 
-user_details="""user details: given below:
-Name :Hardika,
-an aspiring student pursuing BCA HONS. from IINTM IPU
-languages learned c,gen ai and agentic ai, web devlopment
-LOCATION :delhi
-color must be of dark  pink theme
-add effects  """
+user_details = f"""user details: given below:
+Resume info: {user_info}
+Photo: {uploaded_file }
+Photo present in current directory with name as 
+uploaded_file, and once resume generated give
+download button in same html code.
+Default if not given: Give Python Developer Resume"""
+
+
 query = final_prompt +user_details
 
 if st.button("Generate Resume"):

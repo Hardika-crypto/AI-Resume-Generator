@@ -18,7 +18,7 @@ from langchain.messages import SystemMessage, HumanMessage
 import numpy as np
 import streamlit as st
 from langchain_community.document_loaders import PyMuPDFLoader
-from PIL import image
+from PIL import Image
 
 #===========API key load=================
 GOOGLE_API_KEY = st.sidebar.text_input("GEMINI_API_KEY",type="password")

@@ -79,7 +79,7 @@ def resume_maker_prompt():
   return prompt
 resume_maker_prompt()
 #============UPLOAD IMAGE=============
-uploaded_file = st.sidebar.fileuploader(
+uploaded_file = st.sidebar.file_uploader(
     "choose an image file",
      type=["jpg","jpeg","png","webp"])
 if uploaded_file is not None:

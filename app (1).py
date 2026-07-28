@@ -109,8 +109,8 @@ user will upload data and return htyml format resume"""
 final_prompt = prompt + resume_maker_prompt()
 
 user_details = f"""user details: given below:
-Resume info: {user_info}
-Photo: {uploaded_file }
+Resume info:{user_info}
+Photo:{uploaded_file }
 Photo present in current directory with name as 
 uploaded_file, and once resume generated give
 download button in same html code.
